@@ -1,0 +1,17 @@
+{% extends "audit/base.html" %}
+
+{% block content %}
+  <h1>Sites</h1>
+  {% if sites %}
+    <ul>
+      {% for site in sites %}
+        <li>
+          <a href="{% url 'audit:site-report' site.pk %}">{{ site.url }}</a>
+          <span class="muted">(<a href="{% url 'audit:api-site-issues' site.pk %}">JSON</a>)</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No sites yet. Run <code>python manage.py import_gsc --site https://shop.example.com/</code> to add one.</p>
+  {% endif %}
+{% endblock %}

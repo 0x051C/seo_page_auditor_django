@@ -1,0 +1,52 @@
+{% extends "audit/base.html" %}
+{% load humanize %}
+
+{% block title %}SEO report: {{ site.url }}{% endblock %}
+
+{% block content %}
+  <h1>SEO report for {{ site.url }}</h1>
+  <p class="muted">
+    Open issues, highest priority first. Priority = rule weight &times; log<sub>10</sub>(impressions + 10).
+    <a href="{% url 'audit:api-site-issues' site.pk %}">View as JSON</a>
+  </p>
+
+  <div class="summary">
+    {% for label, level, count in severity_counts %}
+      <span><span class="badge badge-{{ level }}">{{ label }}</span> <strong>{{ count }}</strong></span>
+    {% endfor %}
+    <span>Open <strong>{{ issues|length }}</strong></span>
+    <span>Resolved <strong>{{ resolved_count }}</strong></span>
+    <span>Pages checked <strong>{{ pages_checked }}</strong>{% if last_checked %} <span class="muted">(last {{ last_checked|date:"Y-m-d H:i" }} UTC)</span>{% endif %}</span>
+  </div>
+
+  {% if issues %}
+    <table>
+      <thead>
+        <tr>
+          <th class="num">#</th>
+          <th class="num">Priority</th>
+          <th>Severity</th>
+          <th>Issue</th>
+          <th>Page</th>
+          <th class="num">Impressions</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for issue in issues %}
+          <tr>
+            <td class="num muted">{{ forloop.counter }}</td>
+            <td class="num">{{ issue.priority|floatformat:2 }}</td>
+            <td><span class="badge badge-{{ issue.severity }}">{{ issue.get_severity_display }}</span></td>
+            <td class="rule">{{ issue.get_rule_display }}</td>
+            <td class="page"><a href="{{ issue.page_url }}">{{ issue.path }}</a></td>
+            <td class="num">{% if issue.impressions is not None %}{{ issue.impressions|intcomma }}{% else %}&ndash;{% endif %}</td>
+            <td class="detail">{{ issue.detail }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No open issues. Run <code>python manage.py run_audit --site {{ site.url }}</code> after importing and checking pages.</p>
+  {% endif %}
+{% endblock %}

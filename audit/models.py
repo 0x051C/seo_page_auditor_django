@@ -1,3 +1,5 @@
+from urllib.parse import urlsplit
+
 from django.db import models
 from django.utils import timezone
 
@@ -94,3 +96,8 @@ class Issue(models.Model):
 
     def __str__(self):
         return f"{self.get_rule_display()} on {self.page_url}"
+
+    @property
+    def path(self):
+        """The URL without scheme and host, for compact display: '/blog/post/'."""
+        return urlsplit(self.page_url).path or "/"

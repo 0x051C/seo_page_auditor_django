@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.urls import reverse
 
 from audit import rules
 from audit.services import run_audit
@@ -25,3 +26,4 @@ class Command(BaseCommand):
         open_issues = site.issues.filter(resolved=False)
         counts = [f"{open_issues.filter(severity=level).count()} {level}" for level in (rules.HIGH, rules.MEDIUM, rules.LOW)]
         self.stdout.write("  By severity: " + ", ".join(counts))
+        self.stdout.write(f"  Report: {reverse('audit:site-report', args=[site.pk])} (start the server with: python manage.py runserver)")
