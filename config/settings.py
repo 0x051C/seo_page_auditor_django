@@ -117,3 +117,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Search Console
+# "mock" reads sample_data/gsc_sample.json, "google" calls the real API.
+GSC_BACKEND = os.environ.get("GSC_BACKEND", "mock")
+GSC_SAMPLE_FILE = BASE_DIR / "sample_data" / "gsc_sample.json"
+# Path to a service-account JSON key with read access to the property.
+GSC_CREDENTIALS_FILE = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")

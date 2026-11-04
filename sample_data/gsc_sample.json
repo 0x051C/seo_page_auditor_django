@@ -1,0 +1,366 @@
+{
+  "_comment": "Sample Search Console searchanalytics.query response for a fictional outdoor gear shop. Same shape as the real API (rows -> keys/clicks/impressions/ctr/position), except that keys hold paths instead of full URLs so MockBackend can join them onto any --site URL.",
+  "responseAggregationType": "byPage",
+  "rows": [
+    {
+      "keys": [
+        "/"
+      ],
+      "clicks": 1840,
+      "impressions": 22100,
+      "ctr": 0.083258,
+      "position": 2.1
+    },
+    {
+      "keys": [
+        "/tents/"
+      ],
+      "clicks": 610,
+      "impressions": 15400,
+      "ctr": 0.03961,
+      "position": 6.8
+    },
+    {
+      "keys": [
+        "/tents/backpacking/"
+      ],
+      "clicks": 212,
+      "impressions": 9800,
+      "ctr": 0.021633,
+      "position": 7.4
+    },
+    {
+      "keys": [
+        "/tents/family-camping/"
+      ],
+      "clicks": 95,
+      "impressions": 7200,
+      "ctr": 0.013194,
+      "position": 9.6
+    },
+    {
+      "keys": [
+        "/sleeping-bags/"
+      ],
+      "clicks": 430,
+      "impressions": 11200,
+      "ctr": 0.038393,
+      "position": 5.2
+    },
+    {
+      "keys": [
+        "/backpacks/"
+      ],
+      "clicks": 520,
+      "impressions": 8900,
+      "ctr": 0.058427,
+      "position": 3.1
+    },
+    {
+      "keys": [
+        "/backpacks/daypacks/"
+      ],
+      "clicks": 64,
+      "impressions": 6100,
+      "ctr": 0.010492,
+      "position": 11.8
+    },
+    {
+      "keys": [
+        "/hiking-boots/"
+      ],
+      "clicks": 702,
+      "impressions": 13050,
+      "ctr": 0.053793,
+      "position": 4.4
+    },
+    {
+      "keys": [
+        "/hiking-boots/womens/"
+      ],
+      "clicks": 188,
+      "impressions": 4300,
+      "ctr": 0.043721,
+      "position": 8.9
+    },
+    {
+      "keys": [
+        "/trail-running-shoes/"
+      ],
+      "clicks": 22,
+      "impressions": 3900,
+      "ctr": 0.005641,
+      "position": 14.2
+    },
+    {
+      "keys": [
+        "/camp-kitchen/"
+      ],
+      "clicks": 140,
+      "impressions": 2600,
+      "ctr": 0.053846,
+      "position": 6.1
+    },
+    {
+      "keys": [
+        "/water-filters/"
+      ],
+      "clicks": 33,
+      "impressions": 2900,
+      "ctr": 0.011379,
+      "position": 12.5
+    },
+    {
+      "keys": [
+        "/products/ridgeline-2p-tent/"
+      ],
+      "clicks": 158,
+      "impressions": 3400,
+      "ctr": 0.046471,
+      "position": 5.7
+    },
+    {
+      "keys": [
+        "/products/alpine-down-sleeping-bag-20f/"
+      ],
+      "clicks": 90,
+      "impressions": 2100,
+      "ctr": 0.042857,
+      "position": 7.8
+    },
+    {
+      "keys": [
+        "/products/summit-35l-daypack/"
+      ],
+      "clicks": 12,
+      "impressions": 1450,
+      "ctr": 0.008276,
+      "position": 9.3
+    },
+    {
+      "keys": [
+        "/products/trailblazer-gtx-boot/"
+      ],
+      "clicks": 240,
+      "impressions": 3800,
+      "ctr": 0.063158,
+      "position": 3.4
+    },
+    {
+      "keys": [
+        "/products/featherlite-trail-runner/"
+      ],
+      "clicks": 41,
+      "impressions": 980,
+      "ctr": 0.041837,
+      "position": 6.6
+    },
+    {
+      "keys": [
+        "/products/purestream-squeeze-filter/"
+      ],
+      "clicks": 77,
+      "impressions": 1200,
+      "ctr": 0.064167,
+      "position": 4.9
+    },
+    {
+      "keys": [
+        "/products/basecamp-stove-kit/"
+      ],
+      "clicks": 5,
+      "impressions": 310,
+      "ctr": 0.016129,
+      "position": 18.4
+    },
+    {
+      "keys": [
+        "/products/merino-hiking-socks/"
+      ],
+      "clicks": 66,
+      "impressions": 1900,
+      "ctr": 0.034737,
+      "position": 8.2
+    },
+    {
+      "keys": [
+        "/products/storm-shell-rain-jacket/"
+      ],
+      "clicks": 9,
+      "impressions": 760,
+      "ctr": 0.011842,
+      "position": 21.3
+    },
+    {
+      "keys": [
+        "/blog/"
+      ],
+      "clicks": 30,
+      "impressions": 1300,
+      "ctr": 0.023077,
+      "position": 9.9
+    },
+    {
+      "keys": [
+        "/blog/how-to-choose-hiking-boots/"
+      ],
+      "clicks": 860,
+      "impressions": 18400,
+      "ctr": 0.046739,
+      "position": 3.6
+    },
+    {
+      "keys": [
+        "/blog/best-backpacking-tents/"
+      ],
+      "clicks": 410,
+      "impressions": 21500,
+      "ctr": 0.01907,
+      "position": 6.2
+    },
+    {
+      "keys": [
+        "/blog/ten-essentials-checklist/"
+      ],
+      "clicks": 520,
+      "impressions": 9600,
+      "ctr": 0.054167,
+      "position": 2.4
+    },
+    {
+      "keys": [
+        "/blog/how-to-layer-for-hiking/"
+      ],
+      "clicks": 120,
+      "impressions": 8800,
+      "ctr": 0.013636,
+      "position": 8.7
+    },
+    {
+      "keys": [
+        "/blog/sleeping-bag-temperature-ratings/"
+      ],
+      "clicks": 145,
+      "impressions": 5400,
+      "ctr": 0.026852,
+      "position": 5.1
+    },
+    {
+      "keys": [
+        "/blog/leave-no-trace-principles/"
+      ],
+      "clicks": 12,
+      "impressions": 4100,
+      "ctr": 0.002927,
+      "position": 16.8
+    },
+    {
+      "keys": [
+        "/blog/beginner-trail-running-tips/"
+      ],
+      "clicks": 38,
+      "impressions": 1700,
+      "ctr": 0.022353,
+      "position": 11.2
+    },
+    {
+      "keys": [
+        "/blog/water-purification-methods/"
+      ],
+      "clicks": 26,
+      "impressions": 3100,
+      "ctr": 0.008387,
+      "position": 13.4
+    },
+    {
+      "keys": [
+        "/blog/winter-camping-guide/"
+      ],
+      "clicks": 54,
+      "impressions": 2400,
+      "ctr": 0.0225,
+      "position": 7.3
+    },
+    {
+      "keys": [
+        "/blog/how-to-pack-a-backpack/"
+      ],
+      "clicks": 210,
+      "impressions": 6900,
+      "ctr": 0.030435,
+      "position": 4.0
+    },
+    {
+      "keys": [
+        "/guides/size-chart/"
+      ],
+      "clicks": 98,
+      "impressions": 1600,
+      "ctr": 0.06125,
+      "position": 2.2
+    },
+    {
+      "keys": [
+        "/about/"
+      ],
+      "clicks": 18,
+      "impressions": 420,
+      "ctr": 0.042857,
+      "position": 3.5
+    },
+    {
+      "keys": [
+        "/contact/"
+      ],
+      "clicks": 7,
+      "impressions": 260,
+      "ctr": 0.026923,
+      "position": 4.8
+    },
+    {
+      "keys": [
+        "/shipping-and-returns/"
+      ],
+      "clicks": 25,
+      "impressions": 880,
+      "ctr": 0.028409,
+      "position": 2.9
+    },
+    {
+      "keys": [
+        "/sale/"
+      ],
+      "clicks": 3,
+      "impressions": 640,
+      "ctr": 0.004687,
+      "position": 10.0
+    },
+    {
+      "keys": [
+        "/products/trailhead-tent-2019/"
+      ],
+      "clicks": 2,
+      "impressions": 540,
+      "ctr": 0.003704,
+      "position": 24.0
+    },
+    {
+      "keys": [
+        "/blog/2019-gear-guide/"
+      ],
+      "clicks": 4,
+      "impressions": 350,
+      "ctr": 0.011429,
+      "position": 19.7
+    },
+    {
+      "keys": [
+        "/gift-cards/"
+      ],
+      "clicks": 11,
+      "impressions": 190,
+      "ctr": 0.057895,
+      "position": 7.1
+    }
+  ]
+}
