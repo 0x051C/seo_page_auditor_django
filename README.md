@@ -22,8 +22,8 @@ Built with Python 3.12+, Django 5.2, SQLite, Django REST Framework, requests, Be
 Mock mode uses `sample_data/` (40 pages of a fictional outdoor-gear shop) for both the Search Console data and the page HTML. Nothing goes over the network.
 
 ```bash
-git clone https://github.com/0x051C/seo-page-auditor-django.git
-cd seo-page-auditor-django
+git clone https://github.com/0x051C/seo_page_auditor_django.git
+cd seo_page_auditor_django
 python3 -m venv .venv
 source .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install -r requirements.txt

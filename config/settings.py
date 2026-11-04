@@ -149,5 +149,5 @@ PAGE_FETCH_TIMEOUT = float(os.environ.get("PAGE_FETCH_TIMEOUT", "10"))  # second
 PAGE_FETCH_DELAY = float(os.environ.get("PAGE_FETCH_DELAY", "1"))  # seconds between requests
 PAGE_FETCH_USER_AGENT = os.environ.get(
     "PAGE_FETCH_USER_AGENT",
-    "SEOPageAuditor/0.1 (+https://github.com/0x051C/seo-page-auditor-django)",
+    "SEOPageAuditor/0.1 (+https://github.com/0x051C/seo_page_auditor_django)",
 )
