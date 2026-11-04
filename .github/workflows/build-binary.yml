@@ -1,5 +1,7 @@
 # Run the tests, then compile the project into a single Linux executable:
 # Nuitka translates the Python to C, and zig cc compiles the C.
+# Pushing a version tag (git tag v0.2.0 && git push origin v0.2.0) also
+# publishes the binary as a GitHub release.
 name: Test and build binary
 
 on:
@@ -73,3 +75,61 @@ jobs:
           name: seo-page-auditor-linux-x86_64
           path: build/seo-page-auditor
           if-no-files-found: error
+
+  release:
+    # Only for version tags, and only after the build and smoke test passed.
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write  # needed to create the release and upload files
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: seo-page-auditor-linux-x86_64
+          path: dist
+
+      - name: Package the binary
+        working-directory: dist
+        run: |
+          chmod +x seo-page-auditor  # artifacts do not keep the executable bit; tar does
+          ARCHIVE="seo-page-auditor-${GITHUB_REF_NAME}-linux-x86_64.tar.gz"
+          tar -czf "$ARCHIVE" seo-page-auditor
+          sha256sum "$ARCHIVE" > SHA256SUMS
+          echo "ARCHIVE=$ARCHIVE" >> "$GITHUB_ENV"
+
+      - name: Publish the GitHub release
+        working-directory: dist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > notes.md <<'EOF'
+          ## Linux x86_64 binary
+
+          Compiled from this tag with Nuitka (Python to C) and zig cc. It runs without Python installed and needs a glibc about as new as Ubuntu 24.04's.
+
+          ```bash
+          sha256sum -c SHA256SUMS          # optional: check the download
+          tar -xzf seo-page-auditor-*-linux-x86_64.tar.gz
+          ./seo-page-auditor migrate
+          ./seo-page-auditor import_gsc  --site https://shop.example.com/
+          ./seo-page-auditor check_pages --site https://shop.example.com/
+          ./seo-page-auditor run_audit   --site https://shop.example.com/
+          ./seo-page-auditor runserver     # then open http://127.0.0.1:8000/sites/1/report/
+          ```
+
+          The database (`db.sqlite3`) and an optional `.env` are read from the folder you run it in.
+          EOF
+
+          # Re-running this job for an existing release replaces its files.
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$ARCHIVE" SHA256SUMS --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$GITHUB_REF_NAME" "$ARCHIVE" SHA256SUMS \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$GITHUB_REF_NAME" \
+              --notes-file notes.md \
+              --generate-notes \
+              --verify-tag
+          fi

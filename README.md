@@ -54,11 +54,14 @@ python manage.py test
 
 The whole project, including Django and the Python runtime, can be compiled into one Linux executable that runs without Python installed. [Nuitka](https://nuitka.net/) translates the Python code into C, and [Zig](https://ziglang.org/)'s bundled clang (`zig cc`, through Nuitka's `--zig` option) compiles that C into a binary.
 
-**Download:** every push to `main` runs the [Test and build binary](https://github.com/0x051C/seo_page_auditor_django/actions/workflows/build-binary.yml) workflow. Open the latest successful run and download the `seo-page-auditor-linux-x86_64` artifact. Artifacts are zipped, which drops the executable bit:
+**Download** the latest version from the [Releases page](https://github.com/0x051C/seo_page_auditor_django/releases/latest):
 
 ```bash
-unzip seo-page-auditor-linux-x86_64.zip && chmod +x seo-page-auditor
+sha256sum -c SHA256SUMS                                  # optional: check the download
+tar -xzf seo-page-auditor-v*-linux-x86_64.tar.gz
 ```
+
+Builds from every push to `main` are also available as artifacts of the [Test and build binary](https://github.com/0x051C/seo_page_auditor_django/actions/workflows/build-binary.yml) workflow runs. Those are zipped, which drops the executable bit, so run `chmod +x seo-page-auditor` after unzipping.
 
 **Use it** like `python manage.py`. The database (`db.sqlite3`) and an optional `.env` are read from the folder you run it in:
 
@@ -79,6 +82,13 @@ It is built on Ubuntu 24.04 (x86_64), so it needs a Linux system with a similarl
 pip install -r requirements-build.txt     # Nuitka, ziglang (pinned Zig), zstandard, patchelf
 scripts/build_binary.sh                   # writes build/seo-page-auditor (about 30 MB)
 scripts/smoke_test_binary.sh              # runs the binary end to end in a temp folder
+```
+
+**Publish a release** by pushing a version tag. The workflow tests, builds and smoke-tests the binary, then creates a GitHub release with a `.tar.gz` of the binary and a `SHA256SUMS` file:
+
+```bash
+git tag -a v0.2.0 -m "v0.2.0"
+git push origin v0.2.0
 ```
 
 A build takes a few minutes. Django imports a lot of code by name at runtime (apps, migrations, template tags, the SQL compiler), which Nuitka cannot see by following imports, so [`scripts/build_binary.sh`](scripts/build_binary.sh) lists those packages explicitly. The smoke test catches anything missing: it runs the pipeline, serves the report, the API and static files, and logs into the admin. The build tools are in a separate `requirements-build.txt` because the app doesn't need them to run.
@@ -212,7 +222,7 @@ audit/
   tests/                unit, command and view tests, plus HTML fixtures
 sample_data/            mock Search Console response and mock page specs
 scripts/                build_binary.sh (Nuitka + zig cc), smoke_test_binary.sh
-.github/workflows/      CI: tests, then build, smoke-test and upload the binary
+.github/workflows/      CI: tests, build, smoke test, artifact; GitHub release on version tags
 ```
 
 ## Design notes
@@ -230,4 +240,4 @@ scripts/                build_binary.sh (Nuitka + zig cc), smoke_test_binary.sh
 - **Better page checks.** Count only main-content words instead of nav and footer text, record redirects instead of following them silently, respect `robots.txt`, and discover pages from the sitemap as well as from Search Console.
 - **History.** Keep every `PageCheck` and metric period, so the report can show trends and when an issue was fixed.
 - **Domain properties.** Support `sc-domain:` Search Console properties as well as URL-prefix ones.
-- **More platforms.** Build the binary for macOS and Windows as well, and attach binaries to tagged GitHub releases.
+- **More platforms.** Build the binary for macOS and Windows and arm64 as well, with a matrix in the workflow.
