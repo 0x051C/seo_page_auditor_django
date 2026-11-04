@@ -11,7 +11,8 @@ from django.db import transaction
 from django.db.models import Max
 from django.utils import timezone
 
-from .models import PageCheck, PageMetric
+from . import rules
+from .models import Issue, PageCheck, PageMetric
 from .pagecheck import ParsedPage, parse_html
 
 
@@ -115,4 +116,64 @@ def check_pages(site, fetcher, limit=None, on_checked=None):
             result.broken += 1
         if on_checked:
             on_checked(page_check)
+    return result
+
+
+def latest_metrics_by_page(site):
+    """Map page_url -> its most recent PageMetric (by date_end)."""
+    latest = {}
+    for metric in site.metrics.order_by("date_end"):
+        latest[metric.page_url] = metric  # later rows overwrite earlier ones
+    return latest
+
+
+@dataclass
+class AuditResult:
+    created: int = 0
+    updated: int = 0
+    resolved: int = 0
+
+    @property
+    def open(self):
+        return self.created + self.updated
+
+
+def run_audit(site):
+    """
+    Apply every rule to every page of `site` and sync the Issue table.
+
+    - A finding with no matching Issue creates one.
+    - A finding that matches an Issue (same page and rule) updates its
+      severity, priority and detail, and reopens it if it was resolved.
+    - An open Issue that no rule reported this time is marked resolved.
+    """
+    metrics = latest_metrics_by_page(site)
+    checks = {check.page_url: check for check in site.page_checks.all()}
+
+    result = AuditResult()
+    still_open = []
+    with transaction.atomic():
+        for page_url in sorted(metrics.keys() | checks.keys()):
+            metric = metrics.get(page_url)
+            impressions = metric.impressions if metric else 0
+            for finding in rules.evaluate(metric, checks.get(page_url)):
+                score = rules.priority_score(finding.rule, impressions)
+                issue, created = Issue.objects.update_or_create(
+                    site=site,
+                    page_url=page_url,
+                    rule=finding.rule,
+                    defaults={
+                        "severity": rules.severity_for(score),
+                        "priority": score,
+                        "detail": finding.detail,
+                        "resolved": False,
+                    },
+                )
+                still_open.append(issue.pk)
+                if created:
+                    result.created += 1
+                else:
+                    result.updated += 1
+
+        result.resolved = site.issues.filter(resolved=False).exclude(pk__in=still_open).update(resolved=True)
     return result
