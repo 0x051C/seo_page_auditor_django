@@ -1,0 +1,300 @@
+{
+  "_comment": "Fake pages for MockFetcher, keyed by URL path. Paths missing here return 404. 'words' is the number of body words generated from filler_text.",
+  "filler_text": "A good day on the trail starts long before the trailhead. Pick gear that fits the trip you are actually taking, not the expedition you might take someday. Weight matters most on multi-day routes, where every extra ounce adds up over the miles, but comfort and durability matter on every hike. Try packs on with a realistic load, walk around the store in your boots for at least ten minutes, and check the temperature rating of a sleeping bag against the coldest night you expect. Layer clothing so you can adjust as the weather and your effort change. Carry enough water, know where you can refill it, and treat every source. Tell someone your plan and when you expect to be back. When you get home, dry your tent, clean your stove and restock your first aid kit so your kit is ready for the next adventure.",
+  "pages": {
+    "/": {
+      "title": "Trailpeak Outdoors | Tents, Packs and Hiking Gear",
+      "meta_description": "Shop tents, backpacks, sleeping bags and hiking boots tested on real trails. Free shipping over $75 and 60-day returns.",
+      "h1": [
+        "Gear for Every Trail"
+      ],
+      "words": 640
+    },
+    "/tents/": {
+      "title": "Camping and Backpacking Tents | Trailpeak Outdoors",
+      "meta_description": "Compare backpacking, family and four-season tents by weight, capacity and price. Expert picks for every kind of trip.",
+      "h1": [
+        "Camping and Backpacking Tents"
+      ],
+      "words": 480
+    },
+    "/tents/backpacking/": {
+      "title": "Lightweight Backpacking Tents | Trailpeak Outdoors",
+      "h1": [
+        "Lightweight Backpacking Tents"
+      ],
+      "words": 350
+    },
+    "/tents/family-camping/": {
+      "title": "Family Camping Tents | Trailpeak Outdoors",
+      "meta_description": "Roomy family tents with standing headroom, easy setup and weatherproof flies for car camping weekends.",
+      "h1": [
+        "Family Camping Tents"
+      ],
+      "words": 205
+    },
+    "/sleeping-bags/": {
+      "title": "Sleeping Bags for Backpacking, Car Camping and Cold Weather Trips | Trailpeak Outdoors",
+      "meta_description": "Down and synthetic sleeping bags rated from 0F to 40F. Find the right warmth, weight and fit for your next trip.",
+      "h1": [
+        "Sleeping Bags for Backpacking, Car Camping and Cold Weather Trips"
+      ],
+      "words": 410
+    },
+    "/backpacks/": {
+      "title": "Hiking Backpacks and Travel Packs | Trailpeak Outdoors",
+      "meta_description": "Daypacks, overnight packs and expedition backpacks with fit guides and capacity charts for every adventure.",
+      "h1": [
+        "Hiking Backpacks and Travel Packs"
+      ],
+      "words": 520
+    },
+    "/backpacks/daypacks/": {
+      "title": "Daypacks for Hiking | Trailpeak Outdoors",
+      "meta_description": "Lightweight daypacks from 15 to 35 liters with hydration sleeves, rain covers and comfortable hip belts.",
+      "h1": [],
+      "words": 240
+    },
+    "/hiking-boots/": {
+      "title": "Hiking Boots for Men and Women | Trailpeak Outdoors",
+      "meta_description": "Waterproof hiking boots and lightweight trail shoes, fitted for comfort on long days and rough ground.",
+      "h1": [
+        "Trailpeak Outdoors",
+        "Hiking Boots"
+      ],
+      "words": 590
+    },
+    "/hiking-boots/womens/": {
+      "title": "Women's Hiking Boots | Trailpeak Outdoors",
+      "h1": [
+        "Women's Hiking Boots"
+      ],
+      "words": 225
+    },
+    "/trail-running-shoes/": {
+      "title": "Trail Running Shoes | Trailpeak Outdoors",
+      "meta_description": "Grippy, cushioned trail running shoes for technical singletrack, ultras and everyday dirt miles.",
+      "h1": [
+        "Trail Running Shoes"
+      ],
+      "words": 330
+    },
+    "/camp-kitchen/": {
+      "title": "Camp Stoves, Cookware and Kitchen Gear | Trailpeak Outdoors",
+      "h1": [
+        "Camp Stoves, Cookware and Kitchen Gear"
+      ],
+      "words": 170
+    },
+    "/water-filters/": {
+      "title": "Water Filters and Purifiers for Hiking, Backpacking and Travel | Trailpeak Outdoors",
+      "meta_description": "Squeeze filters, pump filters, UV purifiers and tablets compared, so you can drink safely from any stream.",
+      "h1": [
+        "Water Filters and Purifiers for Hiking, Backpacking and Travel"
+      ],
+      "words": 340
+    },
+    "/products/ridgeline-2p-tent/": {
+      "title": "Ridgeline 2P Backpacking Tent | Trailpeak Outdoors",
+      "meta_description": "A 3 lb 2 oz freestanding two-person tent with two doors, two vestibules and a fully taped rainfly.",
+      "h1": [
+        "Ridgeline 2P Backpacking Tent"
+      ],
+      "words": 420
+    },
+    "/products/alpine-down-sleeping-bag-20f/": {
+      "title": "Alpine Down Sleeping Bag 20F | Trailpeak Outdoors",
+      "h1": [
+        "Alpine Down Sleeping Bag 20F"
+      ],
+      "words": 380
+    },
+    "/products/summit-35l-daypack/": {
+      "title": "Summit 35L Daypack | Trailpeak Outdoors",
+      "meta_description": "A 35 liter daypack with a ventilated back panel, hip belt pockets and an integrated rain cover.",
+      "h1": [
+        "Summit 35L Daypack"
+      ],
+      "words": 180,
+      "canonical": false
+    },
+    "/products/trailblazer-gtx-boot/": {
+      "title": "Trailblazer GTX Waterproof Hiking Boot | Trailpeak Outdoors",
+      "meta_description": "A waterproof, breathable mid-cut hiking boot with a Vibram outsole and a cushioned, supportive midsole.",
+      "h1": [
+        "Trailblazer GTX Waterproof Hiking Boot"
+      ],
+      "words": 450
+    },
+    "/products/featherlite-trail-runner/": {
+      "title": "",
+      "meta_description": "A 9 oz trail runner with a rock plate, 5 mm lugs and a roomy toe box for long days on rough trails.",
+      "h1": [
+        "Featherlite Trail Runner"
+      ],
+      "words": 340
+    },
+    "/products/purestream-squeeze-filter/": {
+      "title": "PureStream Squeeze Water Filter | Trailpeak Outdoors",
+      "meta_description": "A 3 oz squeeze filter that removes 99.9999% of bacteria and protozoa. Fits standard bottle threads.",
+      "h1": [
+        "PureStream Squeeze Filter",
+        "Specifications"
+      ],
+      "words": 360
+    },
+    "/products/basecamp-stove-kit/": {
+      "title": "Basecamp Stove Kit | Trailpeak Outdoors",
+      "h1": [
+        "Basecamp Stove Kit"
+      ],
+      "words": 140
+    },
+    "/products/merino-hiking-socks/": {
+      "title": "Merino Wool Hiking Socks | Trailpeak Outdoors",
+      "meta_description": "Cushioned merino wool hiking socks that stay warm when wet, resist odor and come with a lifetime guarantee.",
+      "h1": [
+        "Merino Wool Hiking Socks"
+      ],
+      "words": 120
+    },
+    "/products/storm-shell-rain-jacket/": {
+      "title": "Storm Shell Waterproof Rain Jacket for Hiking and Backpacking | Trailpeak Outdoors",
+      "meta_description": "A 3-layer waterproof breathable shell with pit zips, a helmet-compatible hood and a packable pocket.",
+      "h1": [
+        "Storm Shell Waterproof Rain Jacket for Hiking and Backpacking"
+      ],
+      "words": 310
+    },
+    "/blog/": {
+      "title": "The Trailpeak Journal: Hiking and Camping Advice",
+      "meta_description": "Gear guides, skills and trip ideas from the Trailpeak team and our community of hikers and campers.",
+      "h1": [],
+      "words": 270
+    },
+    "/blog/how-to-choose-hiking-boots/": {
+      "title": "How to Choose Hiking Boots: A Complete Fitting Guide",
+      "meta_description": "Learn how to choose hiking boots: cut, waterproofing, fit, break-in and when trail runners make more sense.",
+      "h1": [
+        "How to Choose Hiking Boots: A Complete Fitting Guide"
+      ],
+      "words": 2100
+    },
+    "/blog/best-backpacking-tents/": {
+      "title": "The 12 Best Backpacking Tents of 2026, Tested on the Trail by Our Gear Team",
+      "meta_description": "We pitched 30 tents in wind, rain and snow. These 12 backpacking tents earned a spot in our packs.",
+      "h1": [
+        "The 12 Best Backpacking Tents of 2026, Tested on the Trail by Our Gear Team"
+      ],
+      "words": 2600
+    },
+    "/blog/ten-essentials-checklist/": {
+      "title": "The Ten Essentials: A Hiking Safety Checklist",
+      "meta_description": "The ten essentials every hiker should carry, why each one matters and how to pack them light.",
+      "h1": [
+        "The Ten Essentials: A Hiking Safety Checklist"
+      ],
+      "words": 1400
+    },
+    "/blog/how-to-layer-for-hiking/": {
+      "title": "How to Layer Clothing for Hiking in Any Weather",
+      "h1": [
+        "How to Layer Clothing for Hiking in Any Weather"
+      ],
+      "words": 1600
+    },
+    "/blog/sleeping-bag-temperature-ratings/": {
+      "title": "Sleeping Bag Temperature Ratings Explained",
+      "meta_description": "Comfort, limit and extreme ratings explained, plus how sleeping pads and clothing change how warm you sleep.",
+      "h1": [
+        "Sleeping Bag Temperature Ratings Explained",
+        "What the EN/ISO Ratings Mean"
+      ],
+      "words": 1250
+    },
+    "/blog/leave-no-trace-principles/": {
+      "title": "The 7 Leave No Trace Principles, Explained",
+      "meta_description": "The seven Leave No Trace principles with practical examples for hikers, campers and backpackers.",
+      "h1": [
+        "The 7 Leave No Trace Principles, Explained"
+      ],
+      "words": 980
+    },
+    "/blog/beginner-trail-running-tips/": {
+      "title": "Trail Running for Beginners: 15 Tips",
+      "h1": [
+        "Trail Running for Beginners: 15 Tips"
+      ],
+      "words": 1100
+    },
+    "/blog/water-purification-methods/": {
+      "title": "Water Purification for Backpackers: Filter, Boil or Treat?",
+      "meta_description": "Filters, chemical treatment, UV light and boiling compared on speed, weight, cost and what each one removes.",
+      "h1": [
+        "Water Purification for Backpackers: Filter, Boil or Treat?"
+      ],
+      "words": 1300
+    },
+    "/blog/winter-camping-guide/": {
+      "title": "Winter Camping Guide: Gear, Food and Safety",
+      "meta_description": "Everything you need to camp comfortably in snow: shelter, sleep systems, stoves, food and staying safe.",
+      "h1": [],
+      "words": 1750
+    },
+    "/blog/how-to-pack-a-backpack/": {
+      "title": "How to Pack a Backpack for a Multi-Day Hike",
+      "meta_description": "Where to put heavy gear, what to keep handy and how to adjust your pack so it carries comfortably all day.",
+      "h1": [
+        "How to Pack a Backpack for a Multi-Day Hike"
+      ],
+      "words": 1200
+    },
+    "/guides/size-chart/": {
+      "title": "Size Chart | Trailpeak Outdoors",
+      "meta_description": "Find your size for Trailpeak jackets, base layers, gloves and footwear, with measuring tips.",
+      "h1": [
+        "Size Chart"
+      ],
+      "words": 150
+    },
+    "/about/": {
+      "title": "About Trailpeak Outdoors",
+      "meta_description": "Trailpeak Outdoors is an independent gear shop run by hikers. We test everything we sell on real trails.",
+      "h1": [
+        "About Trailpeak Outdoors"
+      ],
+      "words": 420
+    },
+    "/contact/": {
+      "title": "Contact Us | Trailpeak Outdoors",
+      "h1": [
+        "Contact Us"
+      ],
+      "words": 90,
+      "canonical": false
+    },
+    "/shipping-and-returns/": {
+      "title": "Shipping and Returns | Trailpeak Outdoors",
+      "meta_description": "Free shipping on orders over $75, 60-day returns and free exchanges on footwear. Here is how it works.",
+      "h1": [
+        "Shipping and Returns"
+      ],
+      "words": 650
+    },
+    "/sale/": {
+      "title": "Sale: Outdoor Gear Deals | Trailpeak Outdoors",
+      "h1": [
+        "Sale: Outdoor Gear Deals"
+      ],
+      "words": 160,
+      "canonical": false
+    },
+    "/gift-cards/": {
+      "status": 500,
+      "title": "Server Error",
+      "h1": [],
+      "words": 6,
+      "canonical": false
+    }
+  }
+}

@@ -3,13 +3,16 @@ The work behind the management commands. Commands parse arguments and print;
 these functions do the database writes, so tests can call them directly.
 """
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.db import transaction
+from django.db.models import Max
+from django.utils import timezone
 
-from .models import PageMetric, Site
+from .models import PageCheck, PageMetric
+from .pagecheck import ParsedPage, parse_html
 
 
 def normalize_site_url(url):
@@ -63,4 +66,53 @@ def import_metrics(site, backend, start, end):
                 result.created += 1
             else:
                 result.updated += 1
+    return result
+
+
+def pages_by_impressions(site):
+    """
+    Distinct page URLs that have metrics, highest impressions first.
+
+    values("page_url").annotate(...) is a GROUP BY page_url in SQL, so each
+    page appears once even if it has metrics for several date ranges.
+    """
+    return list(
+        site.metrics.values("page_url")
+        .annotate(top_impressions=Max("impressions"))
+        .order_by("-top_impressions", "page_url")
+        .values_list("page_url", flat=True)
+    )
+
+
+@dataclass
+class CheckResult:
+    checked: int = 0
+    broken: int = 0
+
+
+def check_pages(site, fetcher, limit=None, on_checked=None):
+    """
+    Fetch every imported page of `site`, parse it, and save a PageCheck.
+
+    One PageCheck per page: update_or_create overwrites the previous snapshot.
+    on_checked(page_check) is called after each page, for progress output.
+    """
+    urls = pages_by_impressions(site)
+    if limit is not None:
+        urls = urls[:limit]
+
+    result = CheckResult()
+    for url in urls:
+        fetched = fetcher.fetch(url)
+        parsed = parse_html(fetched.html) if fetched.html else ParsedPage()
+        page_check, _ = PageCheck.objects.update_or_create(
+            site=site,
+            page_url=url,
+            defaults={"fetched_at": timezone.now(), "status_code": fetched.status_code, **asdict(parsed)},
+        )
+        result.checked += 1
+        if fetched.status_code is None or fetched.status_code >= 400:
+            result.broken += 1
+        if on_checked:
+            on_checked(page_check)
     return result

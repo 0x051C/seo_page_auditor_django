@@ -125,3 +125,17 @@ GSC_BACKEND = os.environ.get("GSC_BACKEND", "mock")
 GSC_SAMPLE_FILE = BASE_DIR / "sample_data" / "gsc_sample.json"
 # Path to a service-account JSON key with read access to the property.
 GSC_CREDENTIALS_FILE = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
+
+
+# Page checker
+# "mock" builds pages from sample_data/pages_sample.json, "http" fetches them.
+# Defaults to mock when the Search Console backend is mock, so one switch
+# (GSC_BACKEND=mock) runs the whole pipeline offline.
+PAGE_FETCHER = os.environ.get("PAGE_FETCHER") or ("mock" if GSC_BACKEND == "mock" else "http")
+PAGE_SAMPLE_FILE = BASE_DIR / "sample_data" / "pages_sample.json"
+PAGE_FETCH_TIMEOUT = float(os.environ.get("PAGE_FETCH_TIMEOUT", "10"))  # seconds
+PAGE_FETCH_DELAY = float(os.environ.get("PAGE_FETCH_DELAY", "1"))  # seconds between requests
+PAGE_FETCH_USER_AGENT = os.environ.get(
+    "PAGE_FETCH_USER_AGENT",
+    "SEOPageAuditor/0.1 (+https://github.com/VicPetrov/seo-page-auditor-django)",
+)
