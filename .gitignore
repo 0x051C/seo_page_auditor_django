@@ -1,0 +1,23 @@
+# Secrets and local config
+.env
+*.token
+*token*.txt
+.github_token
+service-account*.json
+credentials*.json
+
+# Local database
+db.sqlite3
+db.sqlite3-journal
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Tooling
+.coverage
+htmlcov/
+.idea/
+.vscode/
