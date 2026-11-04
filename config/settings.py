@@ -13,9 +13,15 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Where files you create live: the database and .env. From source that is the
+# project folder. The Nuitka binary unpacks its code into a temporary folder
+# on every run, so there it is the folder you run the binary from instead.
+# Nuitka defines __compiled__ in every module it compiles.
+DATA_DIR = Path.cwd() if "__compiled__" in globals() else BASE_DIR
+
 # Read KEY=value pairs from .env into os.environ. Real environment variables
 # win over the file, so the same code works locally and in CI.
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(DATA_DIR / ".env")
 
 
 def env_bool(name, default=False):
@@ -91,7 +97,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DATA_DIR / "db.sqlite3",
     }
 }
 

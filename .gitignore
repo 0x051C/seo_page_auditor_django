@@ -21,3 +21,9 @@ venv/
 htmlcov/
 .idea/
 .vscode/
+
+# Nuitka build output
+build/
+*.build/
+*.dist/
+*.onefile-build/

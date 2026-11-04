@@ -1,0 +1,9 @@
+# Tools for scripts/build_binary.sh. Not needed to run the app from source.
+-r requirements.txt
+nuitka==4.3.4
+# The Zig toolchain as a pip package, so the C compiler version is pinned here.
+ziglang==0.17.0
+# Compresses the onefile binary.
+zstandard==0.25.0
+# Nuitka uses patchelf to fix library paths in Linux builds.
+patchelf==0.19.3.0; sys_platform == "linux"

@@ -1,5 +1,7 @@
 # SEO Page Auditor
 
+[![Test and build binary](https://github.com/0x051C/seo_page_auditor_django/actions/workflows/build-binary.yml/badge.svg)](https://github.com/0x051C/seo_page_auditor_django/actions/workflows/build-binary.yml)
+
 A small Django app that pulls Google Search Console performance data, checks each page for basic on-page SEO problems, and produces a prioritised list of fixes. Problems on high-traffic pages rank first.
 
 ![Report page](docs/report.png)
@@ -47,6 +49,39 @@ Run the tests with:
 ```bash
 python manage.py test
 ```
+
+## Standalone binary (Nuitka + zig cc)
+
+The whole project, including Django and the Python runtime, can be compiled into one Linux executable that runs without Python installed. [Nuitka](https://nuitka.net/) translates the Python code into C, and [Zig](https://ziglang.org/)'s bundled clang (`zig cc`, through Nuitka's `--zig` option) compiles that C into a binary.
+
+**Download:** every push to `main` runs the [Test and build binary](https://github.com/0x051C/seo_page_auditor_django/actions/workflows/build-binary.yml) workflow. Open the latest successful run and download the `seo-page-auditor-linux-x86_64` artifact. Artifacts are zipped, which drops the executable bit:
+
+```bash
+unzip seo-page-auditor-linux-x86_64.zip && chmod +x seo-page-auditor
+```
+
+**Use it** like `python manage.py`. The database (`db.sqlite3`) and an optional `.env` are read from the folder you run it in:
+
+```bash
+mkdir demo && cd demo
+../seo-page-auditor migrate
+../seo-page-auditor import_gsc  --site https://shop.example.com/
+../seo-page-auditor check_pages --site https://shop.example.com/
+../seo-page-auditor run_audit   --site https://shop.example.com/
+../seo-page-auditor runserver
+```
+
+It is built on Ubuntu 24.04 (x86_64), so it needs a Linux system with a similarly recent glibc.
+
+**Build it yourself:**
+
+```bash
+pip install -r requirements-build.txt     # Nuitka, ziglang (pinned Zig), zstandard, patchelf
+scripts/build_binary.sh                   # writes build/seo-page-auditor (about 30 MB)
+scripts/smoke_test_binary.sh              # runs the binary end to end in a temp folder
+```
+
+A build takes a few minutes. Django imports a lot of code by name at runtime (apps, migrations, template tags, the SQL compiler), which Nuitka cannot see by following imports, so [`scripts/build_binary.sh`](scripts/build_binary.sh) lists those packages explicitly. The smoke test catches anything missing: it runs the pipeline, serves the report, the API and static files, and logs into the admin. The build tools are in a separate `requirements-build.txt` because the app doesn't need them to run.
 
 ## Using real Search Console data
 
@@ -176,6 +211,8 @@ audit/
   views.py              report page and DRF list view
   tests/                unit, command and view tests, plus HTML fixtures
 sample_data/            mock Search Console response and mock page specs
+scripts/                build_binary.sh (Nuitka + zig cc), smoke_test_binary.sh
+.github/workflows/      CI: tests, then build, smoke-test and upload the binary
 ```
 
 ## Design notes
@@ -193,4 +230,4 @@ sample_data/            mock Search Console response and mock page specs
 - **Better page checks.** Count only main-content words instead of nav and footer text, record redirects instead of following them silently, respect `robots.txt`, and discover pages from the sitemap as well as from Search Console.
 - **History.** Keep every `PageCheck` and metric period, so the report can show trends and when an issue was fixed.
 - **Domain properties.** Support `sc-domain:` Search Console properties as well as URL-prefix ones.
-- **CI.** Run the tests on every push with GitHub Actions.
+- **More platforms.** Build the binary for macOS and Windows as well, and attach binaries to tagged GitHub releases.

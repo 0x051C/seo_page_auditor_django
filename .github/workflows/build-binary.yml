@@ -1,0 +1,75 @@
+# Run the tests, then compile the project into a single Linux executable:
+# Nuitka translates the Python to C, and zig cc compiles the C.
+name: Test and build binary
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch cancels the older, still-running build.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      - run: python manage.py test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-build.txt
+
+      # Nuitka, the pinned Zig toolchain (ziglang), zstandard and patchelf.
+      - run: pip install -r requirements-build.txt
+
+      # Nuitka keeps compiled C objects in ~/.cache/Nuitka; reusing them makes
+      # rebuilds much faster when only a few modules changed.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/Nuitka
+          key: nuitka-${{ runner.os }}-py${{ env.PYTHON_VERSION }}-${{ hashFiles('requirements*.txt') }}-${{ github.sha }}
+          restore-keys: |
+            nuitka-${{ runner.os }}-py${{ env.PYTHON_VERSION }}-${{ hashFiles('requirements*.txt') }}-
+
+      - name: Compile with Nuitka and zig cc
+        run: scripts/build_binary.sh
+
+      - name: Smoke test the binary
+        run: scripts/smoke_test_binary.sh build/seo-page-auditor
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: seo-page-auditor-linux-x86_64
+          path: build/seo-page-auditor
+          if-no-files-found: error
